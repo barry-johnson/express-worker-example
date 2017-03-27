@@ -1,5 +1,9 @@
 const Promise = require('bluebird');
 
+
+// just to be clear - this intentionally inefficient. Depending on your CPU, computing
+// fibo for something between 40 and 50 should nicely tie up a CPU core
+
 function fibo(n){
     if (n>1)
         return fibo(n-1) + fibo(n-2);

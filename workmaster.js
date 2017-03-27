@@ -15,8 +15,6 @@ var fork = require('child_process').fork;
 
 function WorkMaster(maxWorkers) {
     this.pendingInstalls = [];
-    // this.installedTasks = [];
-    // this.workerListening = false;
     this.workerRestarts = 0;
     this.maxWorkers = maxWorkers;
 
@@ -62,12 +60,12 @@ WorkMaster.prototype.start = function startWorkers(applicationContext, options) 
             this.pendingInstalls.map((m) => spawned.send(m));
         }
         this.workers[i] = spawned;
-        // workers[i]
+
     }
 };
 
 WorkMaster.prototype.handleWorkerMessage = function handleWorkerMessage(msg){
-    // debug(`Recevied worker message: `,msg);
+
     if(msg.task && msg.task !== '') {
         var taskId = msg.taskId;
         if(msg.error){
@@ -103,7 +101,8 @@ WorkMaster.prototype.workByWorker = function workByWorker(taskName, params) {
 
 WorkMaster.prototype.installWorkableTask = function installWorkableTask(taskTag, fromModule, theFunction, makeInstance){
     this.pendingInstalls.push({install:taskTag, module: fromModule, fn: theFunction, useInstace: makeInstance});
-    // return a function here which actually calls the worker, something of a convenience.
+    // return a function here which actually calls the worker, something of a convenience. In app.js
+    // the wait route uses this mechanism, while others routes just calls workByWorker directly
     return _.bind(this.workByWorker, this, taskTag);
 };
 

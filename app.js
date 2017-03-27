@@ -12,7 +12,7 @@ master.installWorkableTask('fail', './time-killers', 'fail', false);
 master.installWorkableTask('suicide', './time-killers', 'suicide', false);
 // there is no xyz exposed in time killers  - just to illustrate the error
 master.installWorkableTask('xyz', './time-killers', 'xyz', false);
-master.start();
+master.start();  // this actually starts the workers.
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
